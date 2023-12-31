@@ -1,0 +1,9 @@
+https://mattgreer.dev/blog/reagent-rocks/#on-to-reagent
+(defn expandable-view []
+  (let [expanded (reagent/atom true)]
+    (fn []
+      [:div.expandable
+        [:div.header {:on-click #(swap! expanded not)}
+         "Click me to expand and collapse"]
+        (if @expanded
+          [:div.body "I am the body"])])))

@@ -4,23 +4,31 @@
    [reagent.core :as reagent :refer [atom]]
    [reagent.dom :as rdom]))
 
-(println "This text is printed from src/me/alpheus/paloma_negra.cljs. Go ahead and edit it and see reloading in action.")
-
-(defn multiply [a b] (* a b))
-
-;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
+(defonce app-state (atom {:text "Paloma Negra"}))
 
 (defn get-app-element []
   (gdom/getElement "app"))
 
-(defn hello-world []
+(defn logo []
+  [:img {:style {:position "absolute" :top 0 :left 0 :border 0}
+         :alt "Paloma Negra"
+         :src "paloma-negra-600-351.png"}])
+
+(defn images []
   [:div
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this in src/me/alpheus/paloma_negra.cljs and watch it change!"]])
+   (for [x (range 4)]
+     [:div {:id (str "foo-" x)}             :onmouseover #(js/alert (str "foo-" x))
+      [:img {:style {:position "absolute" :top 400 :left (* x 132) :border 0}
+             :alt "Paloma Negra"
+             :src "paloma-negra-225-132.png"}]])])
+
+(defn home-page []
+  [:div
+   [logo]
+   [images]])
 
 (defn mount [el]
-  (rdom/render [hello-world] el))
+  (rdom/render [home-page] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]
